@@ -53,7 +53,11 @@ const App = {
     document.getElementById('payment-modal-save').addEventListener('click', App.savePayment);
 
     // Wire up search
-    document.getElementById('search-input').addEventListener('input', () => UI.renderStudentList());
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', () => UI.renderStudentList());
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchInput.blur();
+    });
 
     // Wire up backup
     document.getElementById('btn-export').addEventListener('click', Backup.export);
@@ -162,6 +166,9 @@ const App = {
 
   // ── STUDENT DETAIL ───────────────────────────────
   async openDetail(studentId) {
+    // Blur search input in case it's focused (dismisses keyboard/resets zoom)
+    document.getElementById('search-input').blur();
+
     App.currentStudentId = studentId;
     const [student, sessions, payments] = await Promise.all([
       Students.get(studentId),

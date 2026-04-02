@@ -174,7 +174,7 @@ html, body {
 .search-input {
   width: 100%; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius-sm);
-  padding: 10px 14px; font-family: inherit; font-size: 15px;
+  padding: 10px 14px; font-family: inherit; font-size: 16px;
   color: var(--text); outline: none;
 }
 .search-input::placeholder { color: var(--muted); }
@@ -246,6 +246,7 @@ html, body {
   color: var(--text); outline: none;
   transition: border-color 0.15s;
   -webkit-appearance: none;
+  appearance: none;
 }
 .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
 .form-textarea { resize: none; min-height: 80px; }
