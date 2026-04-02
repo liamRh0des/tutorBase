@@ -1,402 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="TutorBase" />
-<meta name="theme-color" content="#0F0F0F" />
-<title>TutorBase</title>
-<link rel="manifest" href="/manifest.json" />
-<link rel="apple-touch-icon" href="/icons/icon-192.png" />
-<link rel="stylesheet" href="/css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="TutorBase" />
+  <meta name="theme-color" content="#0F0F0F" />
+  <title>TutorBase</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
-<div id="app">
-  <div class="pages">
+  <div id="app">
+    <div class="pages">
 
-    <!-- ══════════════════════════════════════════════
+      <!-- ══════════════════════════════════════════════
          DASHBOARD
     ══════════════════════════════════════════════ -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <h1>Dashboard</h1>
-        <p id="dashboard-greeting">Welcome back</p>
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <p id="dashboard-greeting">Welcome back</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Students</div>
+            <div class="stat-value" id="stat-students">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Upcoming</div>
+            <div class="stat-value" id="stat-upcoming">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value amber" id="stat-pending">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Overdue</div>
+            <div class="stat-value red" id="stat-overdue">—</div>
+          </div>
+        </div>
+
+        <div class="section-header">Upcoming Sessions</div>
+        <div class="list-container" id="upcoming-list"></div>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Students</div>
-          <div class="stat-value" id="stat-students">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Upcoming</div>
-          <div class="stat-value" id="stat-upcoming">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Pending</div>
-          <div class="stat-value amber" id="stat-pending">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Overdue</div>
-          <div class="stat-value red" id="stat-overdue">—</div>
-        </div>
-      </div>
-
-      <div class="section-header">Upcoming Sessions</div>
-      <div class="list-container" id="upcoming-list"></div>
-    </div>
-
-    <!-- ══════════════════════════════════════════════
+      <!-- ══════════════════════════════════════════════
          STUDENTS
     ══════════════════════════════════════════════ -->
-    <div class="page" id="page-students">
-      <div class="page-header">
-        <h1>Students</h1>
+      <div class="page" id="page-students">
+        <div class="page-header">
+          <h1>Students</h1>
+        </div>
+        <div class="search-wrap">
+          <input class="search-input" id="search-input" type="search" placeholder="Search students..." />
+        </div>
+        <div class="list-container" id="student-list"></div>
       </div>
-      <div class="search-wrap">
-        <input class="search-input" id="search-input" type="search" placeholder="Search students..." />
-      </div>
-      <div class="list-container" id="student-list"></div>
-    </div>
 
-    <!-- ══════════════════════════════════════════════
+      <!-- ══════════════════════════════════════════════
          SESSIONS
     ══════════════════════════════════════════════ -->
-    <div class="page" id="page-sessions">
-      <div class="page-header">
-        <h1>Sessions</h1>
-        <p>All upcoming and past sessions</p>
+      <div class="page" id="page-sessions">
+        <div class="page-header">
+          <h1>Sessions</h1>
+          <p>All upcoming and past sessions</p>
+        </div>
+        <div class="list-container" style="margin:0 16px;" id="sessions-list"></div>
       </div>
-      <div class="list-container" style="margin:0 16px;" id="sessions-list"></div>
-    </div>
 
-    <!-- ══════════════════════════════════════════════
+      <!-- ══════════════════════════════════════════════
          PAYMENTS
     ══════════════════════════════════════════════ -->
-    <div class="page" id="page-payments">
-      <div class="page-header">
-        <h1>Payments</h1>
+      <div class="page" id="page-payments">
+        <div class="page-header">
+          <h1>Payments</h1>
+        </div>
+        <div class="pay-summary">
+          <div class="pay-card">
+            <div class="pv green" id="pay-earned">$0</div>
+            <div class="pl">Earned</div>
+          </div>
+          <div class="pay-card">
+            <div class="pv amber" id="pay-pending">$0</div>
+            <div class="pl">Pending</div>
+          </div>
+          <div class="pay-card">
+            <div class="pv red" id="pay-overdue">$0</div>
+            <div class="pl">Overdue</div>
+          </div>
+        </div>
+        <div class="section-header">Payment History</div>
+        <div class="list-container" style="margin:0 16px;" id="payments-list"></div>
       </div>
-      <div class="pay-summary">
-        <div class="pay-card">
-          <div class="pv green" id="pay-earned">$0</div>
-          <div class="pl">Earned</div>
-        </div>
-        <div class="pay-card">
-          <div class="pv amber" id="pay-pending">$0</div>
-          <div class="pl">Pending</div>
-        </div>
-        <div class="pay-card">
-          <div class="pv red" id="pay-overdue">$0</div>
-          <div class="pl">Overdue</div>
-        </div>
-      </div>
-      <div class="section-header">Payment History</div>
-      <div class="list-container" style="margin:0 16px;" id="payments-list"></div>
-    </div>
 
-    <!-- ══════════════════════════════════════════════
+      <!-- ══════════════════════════════════════════════
          SETTINGS
     ══════════════════════════════════════════════ -->
-    <div class="page" id="page-settings">
-      <div class="page-header">
-        <h1>Settings</h1>
-      </div>
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <h1>Settings</h1>
+        </div>
 
-      <div class="section-header">Data & Backup</div>
-      <div class="settings-section">
-        <div class="settings-row">
-          <div>
-            <div class="settings-label">Export backup</div>
-            <div class="settings-sub">Save all your data as a JSON file</div>
+        <div class="section-header">Data & Backup</div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Export backup</div>
+              <div class="settings-sub">Save all your data as a JSON file</div>
+            </div>
+            <button class="btn-settings" id="btn-export">Export</button>
           </div>
-          <button class="btn-settings" id="btn-export">Export</button>
-        </div>
-        <div class="settings-row">
-          <div>
-            <div class="settings-label">Import backup</div>
-            <div class="settings-sub">Restore from a previous backup</div>
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Import backup</div>
+              <div class="settings-sub">Restore from a previous backup</div>
+            </div>
+            <button class="btn-settings" id="btn-import">Import</button>
           </div>
-          <button class="btn-settings" id="btn-import">Import</button>
+          <input type="file" id="import-file" accept=".json" style="display:none" />
         </div>
-        <input type="file" id="import-file" accept=".json" style="display:none" />
-      </div>
 
-      <div class="section-header">Install App</div>
-      <div class="settings-section">
-        <div class="settings-row">
-          <div>
-            <div class="settings-label">Add to Home Screen</div>
-            <div class="settings-sub">iPhone: tap Share → Add to Home Screen. Android: tap ⋮ → Install app.</div>
+        <div class="section-header">Install App</div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <div>
+              <div class="settings-label">Add to Home Screen</div>
+              <div class="settings-sub">iPhone: tap Share → Add to Home Screen. Android: tap ⋮ → Install app.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">About</div>
+        <div class="settings-section">
+          <div class="settings-row">
+            <div class="settings-label">TutorBase</div>
+            <div class="settings-sub">v1.0.0 · All data stored on device</div>
           </div>
         </div>
       </div>
 
-      <div class="section-header">About</div>
-      <div class="settings-section">
-        <div class="settings-row">
-          <div class="settings-label">TutorBase</div>
-          <div class="settings-sub">v1.0.0 · All data stored on device</div>
-        </div>
-      </div>
-    </div>
+    </div><!-- /pages -->
 
-  </div><!-- /pages -->
+    <!-- ── BOTTOM NAV ── -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-page="dashboard">
+        <span class="nav-icon">⊞</span>
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" data-page="students">
+        <span class="nav-icon">◑</span>
+        <span>Students</span>
+      </button>
+      <button class="nav-btn" data-page="sessions">
+        <span class="nav-icon">◷</span>
+        <span>Sessions</span>
+      </button>
+      <button class="nav-btn" data-page="payments">
+        <span class="nav-icon">◈</span>
+        <span>Payments</span>
+      </button>
+      <button class="nav-btn" data-page="settings">
+        <span class="nav-icon">◎</span>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </div><!-- /app -->
 
-  <!-- ── BOTTOM NAV ── -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active" data-page="dashboard">
-      <span class="nav-icon">⊞</span>
-      <span>Home</span>
-    </button>
-    <button class="nav-btn" data-page="students">
-      <span class="nav-icon">◑</span>
-      <span>Students</span>
-    </button>
-    <button class="nav-btn" data-page="sessions">
-      <span class="nav-icon">◷</span>
-      <span>Sessions</span>
-    </button>
-    <button class="nav-btn" data-page="payments">
-      <span class="nav-icon">◈</span>
-      <span>Payments</span>
-    </button>
-    <button class="nav-btn" data-page="settings">
-      <span class="nav-icon">◎</span>
-      <span>Settings</span>
-    </button>
-  </nav>
-</div><!-- /app -->
+  <!-- ── FAB ── -->
+  <button id="fab">+</button>
 
-<!-- ── FAB ── -->
-<button id="fab">+</button>
+  <!-- ── TOAST ── -->
+  <div id="toast"></div>
 
-<!-- ── TOAST ── -->
-<div id="toast"></div>
-
-<!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
      STUDENT FORM MODAL (bottom sheet)
 ══════════════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <span class="modal-title" id="modal-title">New Student</span>
-      <button class="modal-close" id="modal-close">✕</button>
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">New Student</span>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Student form -->
+        <div id="student-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First name *</label>
+              <input class="form-input" id="f-first" type="text" placeholder="Alex" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last name *</label>
+              <input class="form-input" id="f-last" type="text" placeholder="Johnson" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <select class="form-select" id="f-subject">
+                <option value="">Select...</option>
+                <option>Math</option>
+                <option>Science</option>
+                <option>English</option>
+                <option>History</option>
+                <option>Spanish</option>
+                <option>SAT Prep</option>
+                <option>ACT Prep</option>
+                <option>Piano</option>
+                <option>Guitar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Grade</label>
+              <select class="form-select" id="f-grade">
+                <option value="">Select...</option>
+                <option>K–2nd</option>
+                <option>3rd–5th</option>
+                <option>6th–8th</option>
+                <option>9th–12th</option>
+                <option>College</option>
+                <option>Adult</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hourly rate ($)</label>
+            <input class="form-input" id="f-rate" type="number" placeholder="45" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Parent / Guardian</label>
+            <input class="form-input" id="f-parent" type="text" placeholder="Sarah Johnson" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Parent email</label>
+            <input class="form-input" id="f-email" type="email" placeholder="parent@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Parent phone</label>
+            <input class="form-input" id="f-phone" type="tel" placeholder="(555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea class="form-textarea" id="f-notes"
+              placeholder="Learning style, goals, things to remember..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-save" id="modal-save">Save Student</button>
+      </div>
     </div>
-    <div class="modal-body">
-      <!-- Student form -->
-      <div id="student-form">
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+     SESSION FORM MODAL
+══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="session-modal-overlay">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <span class="modal-title">Log Session</span>
+        <button class="modal-close" id="session-modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="session-form">
+        <input type="hidden" id="sf-studentId" />
+        <div class="form-group">
+          <label class="form-label">Student *</label>
+          <select class="form-select" id="sf-student-select"></select>
+        </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">First name *</label>
-            <input class="form-input" id="f-first" type="text" placeholder="Alex" />
+            <label class="form-label">Date *</label>
+            <input class="form-input" id="sf-date" type="date" />
           </div>
           <div class="form-group">
-            <label class="form-label">Last name *</label>
-            <input class="form-input" id="f-last" type="text" placeholder="Johnson" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Subject</label>
-            <select class="form-select" id="f-subject">
-              <option value="">Select...</option>
-              <option>Math</option><option>Science</option><option>English</option>
-              <option>History</option><option>Spanish</option><option>SAT Prep</option>
-              <option>ACT Prep</option><option>Piano</option><option>Guitar</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Grade</label>
-            <select class="form-select" id="f-grade">
-              <option value="">Select...</option>
-              <option>K–2nd</option><option>3rd–5th</option>
-              <option>6th–8th</option><option>9th–12th</option>
-              <option>College</option><option>Adult</option>
-            </select>
+            <label class="form-label">Duration (min)</label>
+            <input class="form-input" id="sf-duration" type="number" value="60" min="15" step="15" />
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Hourly rate ($)</label>
-          <input class="form-input" id="f-rate" type="number" placeholder="45" min="0" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Parent / Guardian</label>
-          <input class="form-input" id="f-parent" type="text" placeholder="Sarah Johnson" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Parent email</label>
-          <input class="form-input" id="f-email" type="email" placeholder="parent@email.com" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Parent phone</label>
-          <input class="form-input" id="f-phone" type="tel" placeholder="(555) 000-0000" />
+          <label class="form-label">Status</label>
+          <select class="form-select" id="sf-status">
+            <option value="scheduled">Scheduled</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
         </div>
         <div class="form-group">
           <label class="form-label">Notes</label>
-          <textarea class="form-textarea" id="f-notes" placeholder="Learning style, goals, things to remember..."></textarea>
+          <textarea class="form-textarea" id="sf-notes" placeholder="Topics covered, homework assigned..."></textarea>
         </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-save" id="modal-save">Save Student</button>
+      <div class="modal-footer">
+        <button class="btn-save" id="session-modal-save">Save Session</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ══════════════════════════════════════════════
-     SESSION FORM MODAL
-══════════════════════════════════════════════ -->
-<div class="modal-overlay" id="session-modal-overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <span class="modal-title">Log Session</span>
-      <button class="modal-close" id="session-modal-close">✕</button>
-    </div>
-    <div class="modal-body" id="session-form">
-      <input type="hidden" id="sf-studentId" />
-      <div class="form-group">
-        <label class="form-label">Student *</label>
-        <select class="form-select" id="sf-student-select"></select>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Date *</label>
-          <input class="form-input" id="sf-date" type="date" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Duration (min)</label>
-          <input class="form-input" id="sf-duration" type="number" value="60" min="15" step="15" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select class="form-select" id="sf-status">
-          <option value="scheduled">Scheduled</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-        <textarea class="form-textarea" id="sf-notes" placeholder="Topics covered, homework assigned..."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-save" id="session-modal-save">Save Session</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
      PAYMENT FORM MODAL
 ══════════════════════════════════════════════ -->
-<div class="modal-overlay" id="payment-modal-overlay">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-header">
-      <span class="modal-title">Log Payment</span>
-      <button class="modal-close" id="payment-modal-close">✕</button>
-    </div>
-    <div class="modal-body" id="payment-form">
-      <div class="form-group">
-        <label class="form-label">Student *</label>
-        <select class="form-select" id="pf-student-select"></select>
+  <div class="modal-overlay" id="payment-modal-overlay">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <span class="modal-title">Log Payment</span>
+        <button class="modal-close" id="payment-modal-close">✕</button>
       </div>
-      <div class="form-row">
+      <div class="modal-body" id="payment-form">
         <div class="form-group">
-          <label class="form-label">Amount ($) *</label>
-          <input class="form-input" id="pf-amount" type="number" placeholder="90" min="0" />
+          <label class="form-label">Student *</label>
+          <select class="form-select" id="pf-student-select"></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Amount ($) *</label>
+            <input class="form-input" id="pf-amount" type="number" placeholder="90" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input class="form-input" id="pf-date" type="date" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="pf-status">
+              <option value="paid">Paid</option>
+              <option value="pending">Pending</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Method</label>
+            <select class="form-select" id="pf-method">
+              <option>Venmo</option>
+              <option>Zelle</option>
+              <option>Cash</option>
+              <option>Check</option>
+              <option>PayPal</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Date</label>
-          <input class="form-input" id="pf-date" type="date" />
+          <label class="form-label">Note</label>
+          <input class="form-input" id="pf-note" type="text" placeholder="e.g. 2 sessions Oct" />
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Status</label>
-          <select class="form-select" id="pf-status">
-            <option value="paid">Paid</option>
-            <option value="pending">Pending</option>
-            <option value="overdue">Overdue</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Method</label>
-          <select class="form-select" id="pf-method">
-            <option>Venmo</option><option>Zelle</option><option>Cash</option>
-            <option>Check</option><option>PayPal</option><option>Other</option>
-          </select>
-        </div>
+      <div class="modal-footer">
+        <button class="btn-save" id="payment-modal-save">Save Payment</button>
       </div>
-      <div class="form-group">
-        <label class="form-label">Note</label>
-        <input class="form-input" id="pf-note" type="text" placeholder="e.g. 2 sessions Oct" />
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-save" id="payment-modal-save">Save Payment</button>
     </div>
   </div>
-</div>
 
-<!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
      STUDENT DETAIL PANEL (full-screen slide-in)
 ══════════════════════════════════════════════ -->
-<div id="detail-panel">
-  <div class="detail-top">
-    <button class="detail-close-btn" id="detail-close">← Back</button>
-  </div>
-  <div class="detail-hero">
-    <div class="detail-avatar-large" id="detail-avatar-text">??</div>
-    <div class="detail-title" id="detail-name"></div>
-    <div class="detail-subtitle" id="detail-subject"></div>
-  </div>
-  <div class="detail-stats-row" id="detail-stats"></div>
+  <div id="detail-panel">
+    <div class="detail-top">
+      <button class="detail-close-btn" id="detail-close">← Back</button>
+    </div>
+    <div class="detail-hero">
+      <div class="detail-avatar-large" id="detail-avatar-text">??</div>
+      <div class="detail-title" id="detail-name"></div>
+      <div class="detail-subtitle" id="detail-subject"></div>
+    </div>
+    <div class="detail-stats-row" id="detail-stats"></div>
 
-  <div class="detail-section">
-    <div class="detail-section-label">Details</div>
-    <div id="detail-info-rows"></div>
+    <div class="detail-section">
+      <div class="detail-section-label">Details</div>
+      <div id="detail-info-rows"></div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-label">Notes</div>
+      <div class="notes-text" id="detail-notes"></div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-label">Recent Sessions</div>
+      <div id="detail-sessions"></div>
+    </div>
+
+    <div class="detail-actions">
+      <button class="btn-action btn-accent" id="detail-add-session">+ Session</button>
+      <button class="btn-action btn-secondary" id="detail-add-payment">+ Payment</button>
+    </div>
+    <div class="detail-edit-row">
+      <button class="btn-action btn-secondary" id="detail-edit">Edit Student</button>
+      <button class="btn-action btn-danger" id="detail-delete">Delete</button>
+    </div>
   </div>
 
-  <div class="detail-section">
-    <div class="detail-section-label">Notes</div>
-    <div class="notes-text" id="detail-notes"></div>
-  </div>
+  <!-- ── SCRIPTS ── -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    // Set greeting
+    const hr = new Date().getHours();
+    document.getElementById('dashboard-greeting').textContent =
+      hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
 
-  <div class="detail-section">
-    <div class="detail-section-label">Recent Sessions</div>
-    <div id="detail-sessions"></div>
-  </div>
-
-  <div class="detail-actions">
-    <button class="btn-action btn-accent" id="detail-add-session">+ Session</button>
-    <button class="btn-action btn-secondary" id="detail-add-payment">+ Payment</button>
-  </div>
-  <div class="detail-edit-row">
-    <button class="btn-action btn-secondary" id="detail-edit">Edit Student</button>
-    <button class="btn-action btn-danger" id="detail-delete">Delete</button>
-  </div>
-</div>
-
-<!-- ── SCRIPTS ── -->
-<script src="/js/db.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/ui.js"></script>
-<script>
-  // Set greeting
-  const hr = new Date().getHours();
-  document.getElementById('dashboard-greeting').textContent =
-    hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
-
-  // Boot
-  App.init();
-</script>
+    // Boot
+    App.init();
+  </script>
 </body>
+
 </html>
